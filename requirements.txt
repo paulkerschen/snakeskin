@@ -7,3 +7,4 @@ psycopg2
 pytest
 pytest-flask
 requests
+https://github.com/python-cas/python-cas/archive/master.zip

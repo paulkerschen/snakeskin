@@ -4,11 +4,10 @@ from flask import (
 from flask_login import (
     login_required, login_user, logout_user
 )
-from ..api.errors import ForbiddenRequestError, ResourceNotFoundError
-from . import authorized_user
+from snakeskin.api.errors import ForbiddenRequestError, ResourceNotFoundError
 
 @current_app.route('/devauth/login', methods=['GET', 'POST'])
-def login():
+def dev_login():
     logger = current_app.logger
     if current_app.config['DEVELOPER_AUTH_ENABLED']:
         if request.method == 'POST':
@@ -16,7 +15,7 @@ def login():
                 logger.error('Wrong password entered in Developer Auth')
                 raise ForbiddenRequestError('Wrong credentials')
             user_id = request.form['uid']
-            user = authorized_user.load_user(user_id)
+            user = current_app.login_manager.user_callback(user_id)
             if user is None:
                 logger.error('Unauthorized user ID {} entered in Developer Auth'.format(user_id))
                 raise ForbiddenRequestError('Unknown account')
@@ -28,7 +27,7 @@ def login():
             return '''
                 <form method="post">
                     <p>UID: <input type=text name=uid>
-                    <p>Password: <input type=text name=password>
+                    <p>Password: <input type=password name=password>
                     <p><input type=submit value=Login>
                 </form>
             '''

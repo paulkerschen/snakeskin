@@ -30,3 +30,5 @@ PORT = 5000
 
 DEVELOPER_AUTH_ENABLED = False
 DEVELOPER_AUTH_PASSWORD = "another secret"
+
+CAS_SERVER = 'https://auth-test.berkeley.edu/cas/'

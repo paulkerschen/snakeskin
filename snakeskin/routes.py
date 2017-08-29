@@ -1,8 +1,18 @@
 from flask import make_response
+import flask_login
 
+from snakeskin.auth.authorized_user import load_user
 
 def register_routes(app):
     """Register app routes."""
+
+    # Register authentication modules. This should be done before
+    # any authentication-protected routes are registered.
+    login_manager = flask_login.LoginManager()
+    login_manager.user_loader(load_user)
+    login_manager.init_app(app)
+    import snakeskin.auth.dev_auth
+    import snakeskin.auth.cas_auth
 
     # Register API routes as blueprints.
     from snakeskin.api.tenant_controller import tenant
@@ -10,11 +20,6 @@ def register_routes(app):
     app.register_blueprint(tenant)
     app.register_blueprint(user)
     import snakeskin.api.status_controller
-
-    # Register authentication modules.
-    from snakeskin.auth.authorized_user import login_manager
-    login_manager.init_app(app)
-    import snakeskin.auth.dev_auth
 
     # Error handling.
     import snakeskin.api.errors

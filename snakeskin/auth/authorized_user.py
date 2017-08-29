@@ -5,13 +5,11 @@ simply mocked-out a la "demo mode" for now.
 
 from collections import namedtuple
 import csv
-import flask_login
-
-login_manager = flask_login.LoginManager()
+from flask_login import UserMixin
 
 MockedUser = namedtuple('MockedUser', 'uid is_admin is_director is_advisor')
 
-class AuthorizedUser(MockedUser, flask_login.UserMixin):
+class AuthorizedUser(MockedUser, UserMixin):
     def get_id(self):
         """Override UserMixin, since our DB conventionally reserves 'id' for generated keys."""
         return self.uid
@@ -30,6 +28,5 @@ _mocked_users_csv = """uid,is_admin,is_director,is_advisor
 _csv_reader = csv.DictReader(_mocked_users_csv.splitlines())
 _mocked_users = {m['uid']: AuthorizedUser(**m) for m in _csv_reader}
 
-@login_manager.user_loader
 def load_user(user_id):
     return _mocked_users.get(user_id)
