@@ -64,6 +64,7 @@ These commands assume your user, database and password are all set to 'snakeskin
 brew install postgresql
 createuser snakeskin --no-createdb --no-superuser --no-createrole --pwprompt
 [Enter (and re-enter) the password: snakeskin]
+```
 
 Create your development database and load the current schema from source control.
 
