@@ -1,4 +1,5 @@
 import os
+import logging
 
 
 # Base directory.
@@ -32,3 +33,8 @@ DEVELOPER_AUTH_ENABLED = False
 DEVELOPER_AUTH_PASSWORD = "another secret"
 
 CAS_SERVER = 'https://auth-test.berkeley.edu/cas/'
+
+# Logging
+LOGGING_FORMAT = '[%(asctime)s] - %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+LOGGING_LOCATION = 'snakeskin.log'
+LOGGING_LEVEL = logging.DEBUG

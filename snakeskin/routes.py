@@ -1,4 +1,4 @@
-from flask import make_response
+from flask import current_app as app, make_response
 import flask_login
 
 from snakeskin.auth.authorized_user import load_user
@@ -27,6 +27,7 @@ def register_routes(app):
     # Unmatched API routes return a 404.
     @app.route('/api/<path:path>')
     def handle_unmatched_api_route(**kwargs):
+        app.logger.error('The requested resource could not be found.')
         raise snakeskin.api.errors.ResourceNotFoundError('The requested resource could not be found.')
 
     # Non-API routes are handled by the front end.
