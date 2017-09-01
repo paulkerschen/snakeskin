@@ -1,3 +1,4 @@
+from flask import current_app as app
 from flask import Blueprint, g, jsonify
 
 from snakeskin.api.errors import ResourceNotFoundError
@@ -11,6 +12,7 @@ user = Blueprint('user', __name__, url_prefix='/api/tenant/<tenant_id>/user/<ext
 def fetch_user(endpoint, values):
     user = User.query.filter_by(tenant_id=values['tenant_id'], external_id=values['external_id']).first()
     if user is None:
+        app.logger.error('The requested user {} could not be found.'.format(values['external_id']))
         raise ResourceNotFoundError('The requested user could not be found.')
     else:
         g.user = user

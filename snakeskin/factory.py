@@ -3,6 +3,7 @@ from flask import Flask
 from snakeskin.configs import load_configs
 from snakeskin.db import initialize_db
 from snakeskin.routes import register_routes
+from snakeskin.logger import initialize_logger
 
 
 def create_app():
@@ -11,6 +12,7 @@ def create_app():
 
     load_configs(app)
     initialize_db(app)
+    initialize_logger(app)
 
     with app.app_context():
         register_routes(app)
