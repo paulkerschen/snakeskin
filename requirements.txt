@@ -3,8 +3,10 @@ Flask-Login
 Flask-SQLAlchemy
 SQLAlchemy
 cx_Oracle
+httpretty
 psycopg2
 pytest
+pytest-catchlog
 pytest-flask
 requests
 https://github.com/python-cas/python-cas/archive/master.zip
