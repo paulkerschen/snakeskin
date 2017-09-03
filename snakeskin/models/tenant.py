@@ -23,8 +23,11 @@ class Tenant(Base):
     domain = db.Column(db.String(255))
     token = db.Column(db.String(255))
 
-    def __init__(self, name):
+    def __init__(self, name, scheme=None, domain=None, token=None):
         self.name = name
+        self.scheme = scheme
+        self.domain = domain
+        self.token = token
 
     def __repr__(self):
         return '<Tenant %r>' % (self.name)

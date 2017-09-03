@@ -1,12 +1,12 @@
 import os
 import subprocess
 
+os.environ['SNAKESKIN_ENV'] = 'test'
+
 import snakeskin.db
 import snakeskin.factory
-
 from tests.fixtures.tenants import *
 
-os.environ['SNAKESKIN_ENV'] = 'test'
 
 # Because app and db fixtures are only created once per pytest run, individual tests
 # are not able to modify application configuration values before the app is created.
